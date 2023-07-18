@@ -17,24 +17,50 @@ export const InputTask: React.FC<InputTaskProps> = ({
   onRemoved,
 }) => {
   const [checked, setChecked] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [value, setValue] = useState(title);
   return (
     <div className={styles.inputTask}>
-      <label>
+      <label className={styles.inputTaskLabel}>
         <input
           type="checkbox"
+          disabled={isEditMode}
           checked={checked}
           className={styles.inputTaskCheckbox}
           onChange={(e) => {
-            setChecked(e.target.value);
+            setChecked(e.target.checked);
           }}
         />
-        <h3 className={styles.inputTaskTitle}>{title}</h3>
+        {isEditMode ? (
+          <input
+            value={value}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+            className={styles.inputTaskTitle}
+          />
+        ) : (
+          <h3 className={styles.inputTaskTitleEdit}>{title}</h3>
+        )}
       </label>
-      <button
-        aria-label="Edit"
-        className={styles.inputTaskEdit}
-        onClick={() => {}}
-      ></button>
+      {isEditMode ? (
+        <button
+          aria-label="Save"
+          className={styles.inputTaskSave}
+          onClick={() => {
+            onEdited(id, value);
+            setIsEditMode(false);
+          }}
+        ></button>
+      ) : (
+        <button
+          aria-label="Edit"
+          className={styles.inputTaskEdit}
+          onClick={() => {
+            setIsEditMode(true);
+          }}
+        ></button>
+      )}
       <button
         aria-label="Remove"
         className={styles.inputTaskRemove}
