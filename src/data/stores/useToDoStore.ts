@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create, Store } from "zustand";
 
 import { generateId } from "../helpers";
 interface Task {
@@ -12,6 +12,19 @@ interface ToDoStore {
   updateTask: (id: string, title: string) => void;
   removeTask: (id: string) => void;
 }
+
+const localStorageUpdate =
+  <T extends Store>(config) =>
+  (set, get, api) =>
+    config(
+      (...args) => {
+        console.log("  applying", args);
+        set(...args);
+        console.log("  new state", get());
+      },
+      get,
+      api
+    );
 
 export const useToDoStore = create<ToDoStore>((set, get) => ({
   tasks: [],
