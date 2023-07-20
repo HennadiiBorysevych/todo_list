@@ -24,12 +24,13 @@ export const InputPlus: React.FC<InputPlusProps> = ({ onAdd }) => {
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
+            addTask();
           }
         }}
         placeholder="Type here"
       />
       <button
-        onClick={() => {}}
+        onClick={addTask}
         aria-label="add"
         className={styles.inputPlusButton}
       ></button>

@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./index.module.scss";
 
 interface InputTaskProps {
   id: string;
   title: string;
   onDone: (id: string) => void;
-  onEdited: (id: string, value: string) => void;
+  onEdited: (id: string, title: string) => void;
   onRemoved: (id: string) => void;
 }
 
