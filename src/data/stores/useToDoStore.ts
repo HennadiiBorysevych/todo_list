@@ -7,7 +7,7 @@ interface Task {
   createdAt: number;
 }
 interface ToDoStore {
-  tasks: Task[] | undefined;
+  tasks: Task[];
   createTask: (title: string) => void;
   updateTask: (id: string, title: string) => void;
   removeTask: (id: string) => void;
@@ -45,7 +45,7 @@ function getCurrentState() {
 
 export const useToDoStore = create<ToDoStore>(
   localStorageUpdate((set, get) => ({
-    tasks: getCurrentState(),
+    tasks: getCurrentState()!,
     createTask: (title) => {
       const { tasks } = get();
       const newTask = {
