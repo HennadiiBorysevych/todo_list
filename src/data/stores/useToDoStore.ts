@@ -14,7 +14,7 @@ interface ToDoStore {
 }
 
 function isToDoStore(store: any): store is ToDoStore {
-  return "task" in store;
+  return "tasks" in store;
 }
 
 const localStorageUpdate =
@@ -31,9 +31,20 @@ const localStorageUpdate =
       api
     );
 
+function getCurrentState() {
+  try {
+    const currentState = JSON.parse(
+      window.localStorage.getItem("tasks") || "[]"
+    ) as Task[];
+    return currentState;
+  } catch (error) {
+    window.localStorage.setItem("tasks", "[]");
+  }
+}
+
 export const useToDoStore = create<ToDoStore>(
   localStorageUpdate((set, get) => ({
-    tasks: [],
+    tasks: getCurrentState(),
     createTask: (title) => {
       const { tasks } = get();
       const newTask = {
