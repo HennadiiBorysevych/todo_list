@@ -7,7 +7,7 @@ interface Task {
   createdAt: number;
 }
 interface ToDoStore {
-  tasks: Task[];
+  tasks: Task[] | undefined;
   createTask: (title: string) => void;
   updateTask: (id: string, title: string) => void;
   removeTask: (id: string) => void;
@@ -38,7 +38,8 @@ function getCurrentState() {
     ) as Task[];
     return currentState;
   } catch (error) {
-    window.localStorage.setItem("tasks", "[]");
+    const state = window.localStorage.setItem("tasks", "[]");
+    return state;
   }
 }
 

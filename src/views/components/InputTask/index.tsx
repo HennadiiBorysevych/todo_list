@@ -4,7 +4,6 @@ import styles from "./index.module.scss";
 interface InputTaskProps {
   id: string;
   title: string;
-  onDone: (id: string) => void;
   onEdited: (id: string, title: string) => void;
   onRemoved: (id: string) => void;
 }
@@ -12,7 +11,6 @@ interface InputTaskProps {
 export const InputTask: React.FC<InputTaskProps> = ({
   id,
   title,
-  onDone,
   onEdited,
   onRemoved,
 }) => {
